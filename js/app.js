@@ -1,24 +1,16 @@
-/*
- * Create a list that holds all of your cards
- */
+// List of cards
+ const suits = ["fa fa-diamond", "fa fa-diamond",
+                "fa fa-paper-plane-o", "fa fa-paper-plane-o",
+                "fa fa-anchor", "fa fa-anchor",
+                "fa fa-bolt", "fa fa-bolt",
+                "fa fa-cube", "fa fa-cube",
+                "fa fa-leaf", "fa fa-leaf",
+                "fa fa-bicycle", "fa fa-bicycle",
+                "fa fa-bomb", "fa fa-bomb"];
 
- const cards = ['fa-diamond', 'fa-diamond',
-                'fa-paper-plane-o', ' fa-paperplane-o',
-                'fa-anchor', 'fa-anchor',
-                'fa-bolt', 'fa-bolt',
-                'fa-cube', 'fa-cube',
-                'fa-leaf', 'fa-leaf',
-                'fa-bicycle', 'fa-bicycle',
-                'fa-bomb', 'fa-bomb']
+//Variables
+const cardContainer = document.querySelector('.deck');
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
- 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -36,6 +28,24 @@ function shuffle(array) {
 }
 
 
+// Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
+for(let i = 0; i < suits.length; i++) {
+  const card = document.createElement('li');
+  const order = shuffle(suits);
+  card.classList.add('card');
+  card.innerHTML = `<i class="${suits[i]}"></i>`;
+  cardContainer.appendChild(card);
+}
+
+
+
+
+
+
+
+
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -46,3 +56,5 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ /* display cards symbol when clicked */
