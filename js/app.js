@@ -11,6 +11,10 @@
 //Variables
 const cardContainer = document.querySelector('.deck');
 
+let flippedCards = [];
+let matchedCards = [];
+
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -24,18 +28,45 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
 
-    return array;
+
 }
 
 
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
-for(let i = 0; i < suits.length; i++) {
-  const card = document.createElement('li');
-  const order = shuffle(suits);
-  card.classList.add('card');
-  card.innerHTML = `<i class="${suits[i]}"></i>`;
-  cardContainer.appendChild(card);
+function start() {
+  for(let i = 0; i < suits.length; i++) {
+    const card = document.createElement('li');
+    const order = shuffle(suits);
+    card.classList.add('card');
+    card.innerHTML = `<i class="${suits[i]}"></i>`;
+    cardContainer.appendChild(card);
+
+  // Flip card
+  card.addEventListener('click', function() {
+    if(flippedCards.length === 1) {
+      card.classList.add('show', 'open');
+      flippedCards.push(this);
+  } else {
+    card.classList.add('show', 'open');
+    openedCards.push(this);
+
+  }
+  });
+  }
 }
+
+start();
+
+
+
+// Restart game
+
+
+
+
+
+
+
 
 
 
