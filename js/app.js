@@ -26,7 +26,7 @@ let matchedCards = [];
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
+  function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
@@ -38,20 +38,27 @@ function shuffle(array) {
     }
 
 
-}
+  }
 
-shuffle(suits);
+
+//shuffle(suits);
 
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
-  for(let i = 0; i < suits.length; i++) {
-    //const order = shuffle(suits);
+  function start() {
+    for(let i = 0; i < suits.length; i++) {
     const card = document.createElement('li');
     card.classList.add('card');
     card.innerHTML = `<i class="${suits[i]}"></i>`;
     cardContainer.appendChild(card);
 
-  // Flip cards
-  card.addEventListener('click', function() {
+    click(card);
+    }
+  }
+
+
+// Flip cards
+  function click(card) {
+    card.addEventListener('click', function() {
 
     const secondCard = this;
     const firstCard = flippedCards[0];
@@ -86,13 +93,19 @@ shuffle(suits);
     flippedCards.push(this);
   }
 
+
   addMove();
 
-  });
+    });
+
   }
 
 
-  // Game over
+// Start game
+  start();
+
+
+// Game over
   function gameOver() {
     if(matchedCards.length === suits.length) {
       setTimeout(function() {
@@ -105,33 +118,39 @@ shuffle(suits);
 
 
 // Move counter
-const moveContainer = document.querySelector('.moves');
-  let moves = 0;
-  function addMove() {
-    moves++;
-    moveContainer.innerHTML = moves;
-  }
+  const moveContainer = document.querySelector('.moves');
+    let moves = 0;
+    function addMove() {
+      moves++;
+      moveContainer.innerHTML = moves;
+    }
 
 
 // Star rating
-const starContainer = document.querySelector('.stars');
-const star = '<li><i class="fa fa-star"></i></l>';
-starContainer.innerHTML = [];
-  function rating() {
-    if (moves <= 28) {
-      starContainer.innerHTML = star + star + star;
-    } else if (28 < moves <= 38) {
-      starContainer.innerHTML = star + star;
-    } else if (38 < moves < 48) {
-      starContainer.innerHTML = star;
-    } else {
-      starContainer.innerHTML = [];
+  const starContainer = document.querySelector('.stars');
+  const star = '<li><i class="fa fa-star"></i></l>';
+  starContainer.innerHTML = [];
+    function rating() {
+      if (moves <= 28) {
+        starContainer.innerHTML = star + star + star;
+      } else if (28 < moves <= 38) {
+        starContainer.innerHTML = star + star;
+      } else if (38 < moves < 48) {
+        starContainer.innerHTML = star;
+      } else {
+        starContainer.innerHTML = [];
+      }
     }
-  }
 
 
 // Restart game
+  const restart = document.querySelector('.restart');
 
+  restart.addEventListener('click', function() {
+    console.log('restart');
+
+
+  });
 
 
 
