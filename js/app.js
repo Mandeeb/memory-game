@@ -40,7 +40,7 @@ function shuffle(array) {
 
 }
 
-//shuffle(suits);
+shuffle(suits);
 
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
   for(let i = 0; i < suits.length; i++) {
@@ -95,7 +95,10 @@ function shuffle(array) {
   // Game over
   function gameOver() {
     if(matchedCards.length === suits.length) {
-      window.alert('You win!');
+      setTimeout(function() {
+        window.alert('You win!');
+      }, 500);
+
       rating();
     }
   }
