@@ -40,7 +40,7 @@ function shuffle(array) {
 
 }
 
-shuffle(suits);
+//shuffle(suits);
 
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
   for(let i = 0; i < suits.length; i++) {
@@ -71,6 +71,7 @@ shuffle(suits);
         // Game over?
         gameOver();
 
+
       } else {
         setTimeout(function() {
         secondCard.classList.remove('show', 'open');
@@ -90,17 +91,14 @@ shuffle(suits);
   });
   }
 
+
   // Game over
   function gameOver() {
     if(matchedCards.length === suits.length) {
-      window.alert('Game Over');
+      window.alert('You win!');
+      rating();
     }
   }
-
-
-
-
-
 
 
 // Move counter
@@ -111,8 +109,22 @@ const moveContainer = document.querySelector('.moves');
     moveContainer.innerHTML = moves;
   }
 
-// Star rating
 
+// Star rating
+const starContainer = document.querySelector('.stars');
+const star = '<li><i class="fa fa-star"></i></l>';
+starContainer.innerHTML = [];
+  function rating() {
+    if (moves <= 28) {
+      starContainer.innerHTML = star + star + star;
+    } else if (28 < moves <= 38) {
+      starContainer.innerHTML = star + star;
+    } else if (38 < moves < 48) {
+      starContainer.innerHTML = star;
+    } else {
+      starContainer.innerHTML = [];
+    }
+  }
 
 
 // Restart game
