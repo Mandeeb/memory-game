@@ -1,15 +1,24 @@
 // List of cards
- const suits = ["fa fa-diamond", "fa fa-diamond",
-                "fa fa-paper-plane-o", "fa fa-paper-plane-o",
-                "fa fa-anchor", "fa fa-anchor",
-                "fa fa-bolt", "fa fa-bolt",
-                "fa fa-cube", "fa fa-cube",
-                "fa fa-leaf", "fa fa-leaf",
-                "fa fa-bicycle", "fa fa-bicycle",
-                "fa fa-bomb", "fa fa-bomb"];
+ const suits = ["fa fa-diamond",
+                "fa fa-diamond",
+                "fa fa-paper-plane-o",
+                "fa fa-paper-plane-o",
+                "fa fa-anchor",
+                "fa fa-anchor",
+                "fa fa-bolt",
+                "fa fa-bolt",
+                "fa fa-cube",
+                "fa fa-cube",
+                "fa fa-leaf",
+                "fa fa-leaf",
+                "fa fa-bicycle",
+                "fa fa-bicycle",
+                "fa fa-bomb",
+                "fa fa-bomb"];
 
 //Variables
 const cardContainer = document.querySelector('.deck');
+
 
 let flippedCards = [];
 let matchedCards = [];
@@ -31,35 +40,84 @@ function shuffle(array) {
 
 }
 
+shuffle(suits);
 
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
-function start() {
   for(let i = 0; i < suits.length; i++) {
+    //const order = shuffle(suits);
     const card = document.createElement('li');
-    const order = shuffle(suits);
     card.classList.add('card');
     card.innerHTML = `<i class="${suits[i]}"></i>`;
     cardContainer.appendChild(card);
 
-  // Flip card
+  // Flip cards
   card.addEventListener('click', function() {
+
+    const secondCard = this;
+    const firstCard = flippedCards[0];
+
     if(flippedCards.length === 1) {
       card.classList.add('show', 'open');
       flippedCards.push(this);
+
+      // Compare cards
+      if(secondCard.innerHTML === firstCard.innerHTML) {
+        secondCard.classList.add('match');
+        firstCard.classList.add('match');
+        matchedCards.push(secondCard, firstCard);
+
+        flippedCards = [];
+
+        // Game over?
+        gameOver();
+
+      } else {
+        setTimeout(function() {
+        secondCard.classList.remove('show', 'open');
+        firstCard.classList.remove('show', 'open');
+        }, 500);
+
+        flippedCards = [];
+      }
+
   } else {
     card.classList.add('show', 'open');
-    openedCards.push(this);
-
+    flippedCards.push(this);
   }
+
+  addMove();
+
   });
   }
-}
 
-start();
+  // Game over
+  function gameOver() {
+    if(matchedCards.length === suits.length) {
+      window.alert('Game Over');
+    }
+  }
+
+
+
+
+
+
+
+// Move counter
+const moveContainer = document.querySelector('.moves');
+  let moves = 0;
+  function addMove() {
+    moves++;
+    moveContainer.innerHTML = moves;
+  }
+
+// Star rating
 
 
 
 // Restart game
+
+
 
 
 
