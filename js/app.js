@@ -19,10 +19,8 @@
 //Variables
 const cardContainer = document.querySelector('.deck');
 
-
 let flippedCards = [];
 let matchedCards = [];
-
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -36,12 +34,10 @@ let matchedCards = [];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
-
   }
 
 
-//shuffle(suits);
+shuffle(suits);
 
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
   function start() {
@@ -147,9 +143,17 @@ let matchedCards = [];
   const restart = document.querySelector('.restart');
 
   restart.addEventListener('click', function() {
-    console.log('restart');
+    cardContainer.innerHTML = '';
+    moveContainer.innerHTML = '';
+    starContainer.innerHTML = '';
 
+    shuffle(suits);
+    start();
 
+    matchedCards = [];
+
+    moves = 0
+    
   });
 
 
