@@ -91,6 +91,7 @@ shuffle(suits);
 
 
   addMove();
+  rating();
 
     });
 
@@ -107,8 +108,6 @@ shuffle(suits);
       setTimeout(function() {
         window.alert('You win!');
       }, 500);
-
-      rating();
     }
   }
 
@@ -123,20 +122,20 @@ shuffle(suits);
 
 
 // Star rating
-  const starContainer = document.querySelector('.stars');
-  const star = '<li><i class="fa fa-star"></i></l>';
-  starContainer.innerHTML = [];
-    function rating() {
-      if (moves <= 28) {
-        starContainer.innerHTML = star + star + star;
-      } else if (28 < moves <= 38) {
-        starContainer.innerHTML = star + star;
-      } else if (38 < moves < 48) {
-        starContainer.innerHTML = star;
-      } else {
-        starContainer.innerHTML = [];
-      }
-    }
+const starContainer = document.querySelector('.stars');
+const star = '<li><i class="fa fa-star"></i></l>';
+starContainer.innerHTML = star + star + star;
+function rating() {
+  if (moves <= 28) {
+    starContainer.innerHTML = star + star + star;
+  } else if (28 < moves <= 38) {
+    starContainer.innerHTML = star + star;
+  } else if (38 < moves < 48) {
+    starContainer.innerHTML = star;
+  } else {
+    starContainer.innerHTML = [];
+  }
+}
 
 
 // Restart game
@@ -153,7 +152,7 @@ shuffle(suits);
     matchedCards = [];
 
     moves = 0
-    
+
   });
 
 
