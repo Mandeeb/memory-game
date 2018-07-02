@@ -18,7 +18,12 @@
 
 //Variables
 const cardContainer = document.querySelector('.deck');
+const moveContainer = document.querySelector('.moves');
+const starContainer = document.querySelector('.stars');
+const star = '<li><i class="fa fa-star"></i></l>';
+starContainer.innerHTML = star + star + star;
 
+let moves = 0;
 let flippedCards = [];
 let matchedCards = [];
 
@@ -37,7 +42,9 @@ let matchedCards = [];
   }
 
 
+// Shuffle cards
 shuffle(suits);
+
 
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
   function start() {
@@ -106,15 +113,17 @@ shuffle(suits);
   function gameOver() {
     if(matchedCards.length === suits.length) {
       setTimeout(function() {
-        window.alert('You win!');
+        window.alert('You won! Your star rating is ' + 'how do I get number of stars from star container here?' + '/n Click OK to play again.');
       }, 500);
     }
   }
 
 
+
+
 // Move counter
-  const moveContainer = document.querySelector('.moves');
-    let moves = 0;
+  //DELETE LATER MOVED TO TOP const moveContainer = document.querySelector('.moves');
+    //DELETE LATER MOVED TO TOP let moves = 0;
     function addMove() {
       moves++;
       moveContainer.innerHTML = moves;
@@ -122,36 +131,36 @@ shuffle(suits);
 
 
 // Star rating
-const starContainer = document.querySelector('.stars');
-const star = '<li><i class="fa fa-star"></i></l>';
-starContainer.innerHTML = star + star + star;
-function rating() {
-  if (moves <= 28) {
-    starContainer.innerHTML = star + star + star;
-  } else if (28 < moves <= 38) {
-    starContainer.innerHTML = star + star;
-  } else if (38 < moves < 48) {
-    starContainer.innerHTML = star;
-  } else {
-    starContainer.innerHTML = [];
+  // DELETE LATER MOVED TO TOP const starContainer = document.querySelector('.stars');
+  // DELETE LATER MOVED TO TOP const star = '<li><i class="fa fa-star"></i></l>';
+  // DELETE LATER MOVED TO TOP starContainer.innerHTML = star + star + star;
+  function rating() {
+    if (moves <= 28) {
+      starContainer.innerHTML = star + star + star;
+    } else if (28 < moves <= 38) {
+      starContainer.innerHTML = star + star;
+    } else if (38 < moves < 48) {
+      starContainer.innerHTML = star;
+    } else {
+      starContainer.innerHTML = [];
+    }
   }
-}
 
 
 // Restart game
   const restart = document.querySelector('.restart');
 
-  restart.addEventListener('click', function() {
+  restart.addEventListener('click', function restart() {
     cardContainer.innerHTML = '';
     moveContainer.innerHTML = '';
-    starContainer.innerHTML = '';
+    starContainer.innerHTML = star + star + star;
 
     shuffle(suits);
     start();
 
     matchedCards = [];
 
-    moves = 0
+    moves = 0;
 
   });
 
