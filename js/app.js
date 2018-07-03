@@ -21,6 +21,7 @@ const cardContainer = document.querySelector('.deck');
 const moveContainer = document.querySelector('.moves');
 const starContainer = document.querySelector('.stars');
 const star = '<li><i class="fa fa-star"></i></l>';
+const restart = document.querySelector('.restart');
 starContainer.innerHTML = star + star + star;
 
 let moves = 0;
@@ -43,7 +44,7 @@ let matchedCards = [];
 
 
 // Shuffle cards
-shuffle(suits);
+//shuffle(suits);
 
 
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
@@ -108,12 +109,30 @@ shuffle(suits);
 // Start game
   start();
 
+// Number of stars for end of game message
+  function finalStars() {
+    if (moves <= 28) {
+      x = 3;
+    } else if (28 < moves <= 38) {
+      x = 2;
+    } else if (38 < moves < 48) {
+      x = 1;
+    } else {
+      x = 0;
+    }
+  }
+
 
 // Game over
   function gameOver() {
     if(matchedCards.length === suits.length) {
       setTimeout(function() {
-        window.alert('You won! Your star rating is ' + 'how do I get number of stars from star container here?' + '/n Click OK to play again.');
+        finalStars();
+        console.log(x);
+        let message = 'You won! Your star rating is ' + x + '. Click ok to play again.';
+        if (window.confirm(message)) {
+          playAgain();
+        }
       }, 500);
     }
   }
@@ -147,22 +166,26 @@ shuffle(suits);
   }
 
 
-// Restart game
-  const restart = document.querySelector('.restart');
-
-  restart.addEventListener('click', function restart() {
+  // Play again function
+  function playAgain() {
     cardContainer.innerHTML = '';
     moveContainer.innerHTML = '';
     starContainer.innerHTML = star + star + star;
 
-    shuffle(suits);
+    //shuffle(suits);
     start();
 
     matchedCards = [];
 
     moves = 0;
+  }
 
-  });
+
+  // Restart game event listener
+    // DELETE LATER const restart = document.querySelector('.restart');
+
+    restart.addEventListener('click', playAgain());
+
 
 
 
