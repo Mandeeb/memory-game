@@ -21,9 +21,10 @@ const cardContainer = document.querySelector('.deck');
 const moveContainer = document.querySelector('.moves');
 const starContainer = document.querySelector('.stars');
 const star = '<li><i class="fa fa-star"></i></l>';
+const timerDisplay = document.querySelector('.timer');
 const restart = document.querySelector('.restart');
 
-
+let countdown;
 let moves = 0;
 let flippedCards = [];
 let matchedCards = [];
@@ -43,41 +44,9 @@ let matchedCards = [];
   }
 
 
-  //Timer function from https://www.youtube.com/watch?v=LAaf7-WuJJQ
-  let countdown;
-  const timerDisplay = document.querySelector('.timer');
-
-  function timer(seconds) {
-      const now = Date.now();
-      const then = now + seconds * 1000;
-      displayTimeLeft(seconds);
-
-      countdown = setInterval(() => {
-        const secondsLeft = Math.round((then - Date.now()) / 1000);
-
-        if(secondsLeft <= 0) {
-          clearInterval(countdown);
-          return;
-        }
-
-        displayTimeLeft(secondsLeft);
-      }, 1000);
-  }
-
-  function displayTimeLeft(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainderSeconds = seconds % 60;
-    const display = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
-    timerDisplay.textContent = display;
-  }
-
-
-// Shuffle cards
-//shuffle(suits);
-
-
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
   function start() {
+    //shuffle(suits);
     for(let i = 0; i < suits.length; i++) {
     const card = document.createElement('li');
     card.classList.add('card');
@@ -92,9 +61,6 @@ let matchedCards = [];
 // Flip cards
   function click(card) {
     card.addEventListener('click', function() {
-
-    // Start timer
-    timer(240);
 
     const secondCard = this;
     const firstCard = flippedCards[0];
@@ -129,12 +95,11 @@ let matchedCards = [];
     flippedCards.push(this);
   }
 
-
   addMove();
   rating();
 
-    });
-
+  });
+  timer(240);
   }
 
 
@@ -156,13 +121,40 @@ let matchedCards = [];
   }
 
 
+//Timer function from https://www.youtube.com/watch?v=LAaf7-WuJJQ
+  function timer(seconds) {
+      const now = Date.now();
+      const then = now + seconds * 1000;
+      displayTimeLeft(seconds);
+
+      countdown = setInterval(() => {
+        const secondsLeft = Math.round((then - Date.now()) / 1000);
+
+        if(secondsLeft <= 0) {
+          clearInterval(countdown);
+          return;
+        }
+
+        displayTimeLeft(secondsLeft);
+      }, 1000);
+  }
+
+  function displayTimeLeft(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainderSeconds = seconds % 60;
+    const display = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
+    timerDisplay.textContent = display;
+  }
+
+
+
 // Game over
   function gameOver() {
     if(matchedCards.length === suits.length) {
       setTimeout(function() {
         finalStars();
         console.log(x);
-        let message = 'You won with' + display + ' left! Your star rating is ' + x + '. Click ok to play again.';
+        let message = 'You won with time left! Your star rating is ' + x + '. Click ok to play again.';
         if (window.confirm(message)) {
           playAgain();
         }
@@ -193,13 +185,12 @@ let matchedCards = [];
   }
 
 
-  // Play again function
+// Play again function
   function playAgain() {
     cardContainer.innerHTML = '';
     moveContainer.innerHTML = '';
     starContainer.innerHTML = star + star + star;
 
-    //shuffle(suits);
     start();
 
     matchedCards = [];
@@ -209,7 +200,19 @@ let matchedCards = [];
 
 
 // Restart game event listener
-  restart.addEventListener('click', playAgain());
+  restart.addEventListener('click', function() {
+    cardContainer.innerHTML = '';
+    moveContainer.innerHTML = '';
+    starContainer.innerHTML = star + star + star;
+
+    start();
+
+    matchedCards = [];
+    moves = 0;
+  });
+
+
+
 
 
 
