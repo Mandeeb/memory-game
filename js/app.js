@@ -22,7 +22,7 @@ const moveContainer = document.querySelector('.moves');
 const starContainer = document.querySelector('.stars');
 const star = '<li><i class="fa fa-star"></i></l>';
 const restart = document.querySelector('.restart');
-starContainer.innerHTML = star + star + star;
+
 
 let moves = 0;
 let flippedCards = [];
@@ -40,6 +40,35 @@ let matchedCards = [];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
+  }
+
+
+  //Timer function from https://www.youtube.com/watch?v=LAaf7-WuJJQ
+  let countdown;
+  const timerDisplay = document.querySelector('.timer');
+
+  function timer(seconds) {
+      const now = Date.now();
+      const then = now + seconds * 1000;
+      displayTimeLeft(seconds);
+
+      countdown = setInterval(() => {
+        const secondsLeft = Math.round((then - Date.now()) / 1000);
+
+        if(secondsLeft <= 0) {
+          clearInterval(countdown);
+          return;
+        }
+
+        displayTimeLeft(secondsLeft);
+      }, 1000);
+  }
+
+  function displayTimeLeft(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainderSeconds = seconds % 60;
+    const display = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
+    timerDisplay.textContent = display;
   }
 
 
@@ -63,6 +92,9 @@ let matchedCards = [];
 // Flip cards
   function click(card) {
     card.addEventListener('click', function() {
+
+    // Start timer
+    timer(240);
 
     const secondCard = this;
     const firstCard = flippedCards[0];
@@ -109,6 +141,7 @@ let matchedCards = [];
 // Start game
   start();
 
+
 // Number of stars for end of game message
   function finalStars() {
     if (moves <= 28) {
@@ -129,7 +162,7 @@ let matchedCards = [];
       setTimeout(function() {
         finalStars();
         console.log(x);
-        let message = 'You won! Your star rating is ' + x + '. Click ok to play again.';
+        let message = 'You won with' + display + ' left! Your star rating is ' + x + '. Click ok to play again.';
         if (window.confirm(message)) {
           playAgain();
         }
@@ -138,11 +171,7 @@ let matchedCards = [];
   }
 
 
-
-
 // Move counter
-  //DELETE LATER MOVED TO TOP const moveContainer = document.querySelector('.moves');
-    //DELETE LATER MOVED TO TOP let moves = 0;
     function addMove() {
       moves++;
       moveContainer.innerHTML = moves;
@@ -150,9 +179,7 @@ let matchedCards = [];
 
 
 // Star rating
-  // DELETE LATER MOVED TO TOP const starContainer = document.querySelector('.stars');
-  // DELETE LATER MOVED TO TOP const star = '<li><i class="fa fa-star"></i></l>';
-  // DELETE LATER MOVED TO TOP starContainer.innerHTML = star + star + star;
+  starContainer.innerHTML = star + star + star;
   function rating() {
     if (moves <= 28) {
       starContainer.innerHTML = star + star + star;
@@ -181,10 +208,10 @@ let matchedCards = [];
   }
 
 
-  // Restart game event listener
-    // DELETE LATER const restart = document.querySelector('.restart');
+// Restart game event listener
+  restart.addEventListener('click', playAgain());
 
-    restart.addEventListener('click', playAgain());
+
 
 
 
