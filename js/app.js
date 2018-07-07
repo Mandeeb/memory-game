@@ -80,7 +80,6 @@ let matchedCards = [];
         // Game over?
         gameOver();
 
-
       } else {
         setTimeout(function() {
         secondCard.classList.remove('show', 'open');
@@ -93,10 +92,11 @@ let matchedCards = [];
   } else {
     card.classList.add('show', 'open');
     flippedCards.push(this);
+  }
 
-      if(moves === 0) {
-        timer(240);
-      }
+// Start timer
+    if(moves === 0) {
+      timer(240);
     }
 
   addMove();
@@ -124,20 +124,20 @@ let matchedCards = [];
   }
 
 
-
-
-
 // Game over
   function gameOver() {
+
+
     if(matchedCards.length === suits.length) {
       setTimeout(function() {
         finalStars();
         console.log(x);
-        let message = 'You won with time left! Your star rating is ' + x + '. Click ok to play again.';
+        let message = 'You won with ' + left + ' left! Your star rating is ' + x + '. Click ok to play again.';
         if (window.confirm(message)) {
           playAgain();
         }
       }, 500);
+      clearInterval(countdown);
     }
   }
 
@@ -169,6 +169,7 @@ let matchedCards = [];
     cardContainer.innerHTML = '';
     moveContainer.innerHTML = '';
     starContainer.innerHTML = star + star + star;
+    timerDisplay.textContent = '4:00';
 
     start();
 
@@ -183,12 +184,16 @@ let matchedCards = [];
     cardContainer.innerHTML = '';
     moveContainer.innerHTML = '';
     starContainer.innerHTML = star + star + star;
+    timerDisplay.textContent = '4:00';
 
+    clearInterval(countdown);
     start();
 
     matchedCards = [];
+
     moves = 0;
   });
+
 
   //Timer function from https://www.youtube.com/watch?v=LAaf7-WuJJQ
     function timer(seconds) {
@@ -213,6 +218,7 @@ let matchedCards = [];
       const remainderSeconds = seconds % 60;
       const display = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
       timerDisplay.textContent = display;
+      left = display;
     }
 
 
