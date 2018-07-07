@@ -66,7 +66,7 @@ let matchedCards = [];
     const firstCard = flippedCards[0];
 
     if(flippedCards.length === 1) {
-      card.classList.add('show', 'open');
+      card.classList.add('show', 'open', 'disabled');
       flippedCards.push(this);
 
       // Compare cards
@@ -82,15 +82,15 @@ let matchedCards = [];
 
       } else {
         setTimeout(function() {
-        secondCard.classList.remove('show', 'open');
-        firstCard.classList.remove('show', 'open');
+        secondCard.classList.remove('show', 'open', 'disabled');
+        firstCard.classList.remove('show', 'open', 'disabled');
         }, 500);
 
         flippedCards = [];
       }
 
   } else {
-    card.classList.add('show', 'open');
+    card.classList.add('show', 'open', 'disabled');
     flippedCards.push(this);
   }
 
