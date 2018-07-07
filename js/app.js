@@ -46,7 +46,7 @@ let matchedCards = [];
 
 // Create and display shuffled cards (I referred to https://www.youtube.com/watch?v=G8J13lmApkQ to get started. I was really struggling.)
   function start() {
-    //shuffle(suits);
+    shuffle(suits);
     for(let i = 0; i < suits.length; i++) {
     const card = document.createElement('li');
     card.classList.add('card');
@@ -93,13 +93,16 @@ let matchedCards = [];
   } else {
     card.classList.add('show', 'open');
     flippedCards.push(this);
-  }
+
+      if(moves === 0) {
+        timer(240);
+      }
+    }
 
   addMove();
   rating();
 
   });
-  timer(240);
   }
 
 
@@ -121,30 +124,6 @@ let matchedCards = [];
   }
 
 
-//Timer function from https://www.youtube.com/watch?v=LAaf7-WuJJQ
-  function timer(seconds) {
-      const now = Date.now();
-      const then = now + seconds * 1000;
-      displayTimeLeft(seconds);
-
-      countdown = setInterval(() => {
-        const secondsLeft = Math.round((then - Date.now()) / 1000);
-
-        if(secondsLeft <= 0) {
-          clearInterval(countdown);
-          return;
-        }
-
-        displayTimeLeft(secondsLeft);
-      }, 1000);
-  }
-
-  function displayTimeLeft(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainderSeconds = seconds % 60;
-    const display = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
-    timerDisplay.textContent = display;
-  }
 
 
 
@@ -210,6 +189,31 @@ let matchedCards = [];
     matchedCards = [];
     moves = 0;
   });
+
+  //Timer function from https://www.youtube.com/watch?v=LAaf7-WuJJQ
+    function timer(seconds) {
+        const now = Date.now();
+        const then = now + seconds * 1000;
+        displayTimeLeft(seconds);
+
+        countdown = setInterval(() => {
+          const secondsLeft = Math.round((then - Date.now()) / 1000);
+
+          if(secondsLeft <= 0) {
+            clearInterval(countdown);
+            return;
+          }
+
+          displayTimeLeft(secondsLeft);
+        }, 1000);
+    }
+
+    function displayTimeLeft(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainderSeconds = seconds % 60;
+      const display = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
+      timerDisplay.textContent = display;
+    }
 
 
 
