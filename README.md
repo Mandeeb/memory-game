@@ -16,3 +16,8 @@ Features:
 
   Timer - A timer starts when the first card is clicked.  See if you can beat
           the timer.  Good luck!
+
+
+
+  Dependencies:
+    The font for the icons on the card is Google Font Awesome.
